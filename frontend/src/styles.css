@@ -1,0 +1,1038 @@
+body {
+    margin: 0;
+    font-family: "Bebas Neue", sans-serif;
+}
+
+/*Шапка*/
+header {
+    background-color: #bae69eb7;
+    color: #ebfde3;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /*position: fixed;*/
+    top: 0;
+    height: 100px;
+    width: 100%;
+    z-index: 1000;
+}
+
+.logo, .cart, .user {
+    display: flex;
+    align-items: center;
+}
+
+.iconLogo {
+    margin-right: 0.5vw;
+}
+
+.cart {
+    margin-left: 5vw;
+}
+
+.categories {
+    margin-right: 5vw;
+    position: relative;
+}
+
+.logo a {
+    color: #2b4930;
+    text-decoration: none;
+    font-size: 40px;
+    font-weight: bold;
+}
+
+/*Выпавшие категори и их оформление*/
+.categories .dropdown-btn {
+    background-color: transparent;
+    border: none;
+    color: #1f3b23;
+    cursor: pointer;
+    font-size: 28px;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #bae69eb7;
+    min-width: 160px;
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: #1f3b23;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: #bae69eb7;
+}
+
+.cart img, .user img {
+    width: 70px;
+    height: 70px;
+    cursor: pointer;
+    display: block;
+}
+
+/* ОСНОВНАЯ ЧАСТЬ ГЛАВНОЙ СТРАНИЦЫ */
+
+.container {
+    display: flex;
+    align-items: flex-start;
+    margin-top: 4.2vw;
+}
+
+/*Оглавление слева */
+.sidebar {
+    height: 50vw;
+    width: 10vw;
+    background-color: #e3f7e1;
+    border-right: 1px solid #ccc;
+    top: 0;
+    left: 0;
+    position: fixed;
+    margin-top: 10vh;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    border-radius: 0 10px 10px 0;
+    overflow-y: auto;
+    padding: 1rem;
+}
+
+.sidebar a {
+    display: block;
+    color: #333;
+    padding: 10px;
+    margin: 5px 0;
+    text-decoration: none;
+    font-size: 25px;
+    border-radius: 5px;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.sidebar a:hover {
+    background-color: #c3e6c1;
+    transform: scale(1.05);
+}
+
+.sidebar a:active {
+    background-color: #b0dcb0;
+}
+
+.main-content {
+    width: 70%;
+    margin-right: 5%;
+    margin-top: 1.5vw;
+
+
+}
+
+.section {
+    margin-bottom: 20px;
+    text-align: center;
+
+}
+
+.section h2 {
+    font-size: 30px;
+    margin-bottom: 20px;
+    color: #2b4930;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+
+}
+
+.prev-btn,
+.next-btn {
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+/*ПРОДОЛЖЕНИЕ ШАПКИ Я ЕБЛАН ЗАБЕЙ ПОЧЕМУ ТАК */
+.user img {
+    margin-right: 10vw;
+}
+
+.user a {
+    color: #0a0a0a;
+    text-decoration: none;
+    font-size: 28px;
+}
+
+.categories .dropdown-btn:hover, .user a:hover, .cart img:hover {
+    transform: scale(1.1);
+    filter: brightness(1.2);
+    transition: transform 0.2s, filter 0.2s;
+}
+
+.dropdown-content a:hover {
+    background-color: #98df91;
+}
+
+.dropdown-content .category {
+    display: flex;
+    flex-direction: column;
+}
+
+.subcategories {
+    display: none;
+    padding-left: 40px;
+}
+
+.category:hover .subcategories {
+    display: block;
+}
+
+.subcategories a {
+    color: #1f3b23;
+    padding: 6px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.subcategories a:hover {
+    background-color: #bae69eb7;
+}
+
+/* продолжение ОГЛАВЛЕНИя, НЕ ШАПКА*/
+
+
+.navigation {
+    list-style: none;
+    padding: 0;
+    margin-left: 50px;
+    margin-top: 1vw;
+}
+
+.navigation li {
+    margin-bottom: 10px;
+}
+
+.navigation a {
+    text-decoration: none;
+    color: #333;
+    font-size: 28px;
+    display: block;
+    padding: 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.navigation a:hover {
+    background-color: #e0e0e0;
+}
+
+.navigation ul {
+    padding-left: 20px;
+}
+
+.navigation ul li {
+    margin-bottom: 5px;
+}
+
+.navigation ul li a {
+    font-size: 20px;
+    padding: 8px;
+    border-radius: 3px;
+}
+
+.navigation ul li a:hover {
+    background-color: #f0f0f0;
+}
+
+/*Для телефона главные адаптации*/
+@media screen and (max-width: 800px) {
+    .cart img, .user img {
+        width: 50px;
+        height: 50px;
+    }
+
+    .user a, .categories, .dropdown-btn {
+        font-size: 24px;
+    }
+
+    .logo a {
+        font-size: 36px;
+    }
+
+    .sidebar {
+        height: 130vw;
+    }
+
+    .container {
+        margin-top: 18vw;
+    }
+
+    .sidebar {
+        width: 30%;
+        height: 300vw;
+        background-color: #f2ffe6;
+        margin-left: 0;
+        padding: 20px;
+    }
+
+    .main-content {
+        width: 60%;
+        margin-right: 0;
+        margin-top: 1.5vw;
+
+
+    }
+
+    .navigation {
+        list-style: none;
+        padding: 0;
+        margin-left: 10px;
+        margin-top: 1vw;
+    }
+}
+
+/*Подвал и его оформление*/
+footer {
+    background-color: #1f1f1f;
+    color: #fff;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* position: fixed; */
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.footer-left {
+    margin-left: 20px;
+}
+
+.footer-right {
+    margin-right: 20px;
+}
+
+.footer-right button {
+    background-color: #bae69e;
+    border: none;
+    margin-right: 20px;
+    color: #1f1f1f;
+    padding: 10px 20px;
+    font-size: 20px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.footer-right button:hover {
+    background-color: #98df91;
+}
+
+ 
+.close-btn {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-btn:hover,
+.close-btn:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/*КАРУСЕЛЬ КАРТИНОК */
+
+.image-carousel-container {
+    overflow-x: auto;
+    white-space: nowrap;
+    margin-bottom: 10px;
+}
+
+.image-carousel {
+    display: inline-block;
+}
+
+.image-carousel img {
+    width: 300px;
+    height: auto;
+    max-height: 200px;
+    margin-right: 50px;
+    margin-left: 50px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.image-carousel img:hover {
+    transform: scale(1.05);
+}
+
+.controls {
+    margin-top: 30px;
+
+}
+
+/*Кнопки для прокрутки ленті*/
+.prev-btn,
+.next-btn {
+    padding: 20px 40px;
+    cursor: pointer;
+    background-color: #bae69e;
+    color: #1f3b23;
+    border: none;
+    margin-left: 100px;
+    margin-right: 100px;
+    border-radius: 20px;
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Плавные переходы */
+    font-size: 20;
+}
+
+.prev-btn:hover,
+.next-btn:hover {
+    background-color: #98df91;
+    transform: scale(1.1);
+}
+
+.image-carousel {
+    display: inline-block;
+}
+
+.slide-next {
+    animation: slideNext 0.3s forwards;
+}
+
+.slide-prev {
+    animation: slidePrev 0.3s forwards;
+}
+
+/* Длинна анимации ленты*/
+@keyframes slideNext {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-15%);
+    }
+}
+
+@keyframes slidePrev {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(15%);
+    }
+}
+
+
+/*Логин и вся его требуха */
+.login-container {
+    margin-top: -100px;
+    position: absolute;
+    padding: 30px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    background-color: rgba(174, 238, 174, 0.8);
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.login-input {
+    margin-bottom: 20px;
+    padding: 10px;
+    width: 300px;
+    border: none;
+    border-bottom: 2px solid #333;
+    outline: none;
+    font-size: 18px;
+    background-color: rgba(174, 238, 174, 0.8);
+}
+
+.login-btn2 {
+    padding: 15px 30px;
+    border: none;
+    border-radius: 5px;
+    background-color: #333;
+    color: rgba(174, 238, 174, 0.8);
+    font-size: 20px;
+    cursor: pointer;
+    transition: background-color 0.5s ease;
+}
+
+.login-btn2:hover {
+    background-color: #555;
+}
+
+.login-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+
+}
+
+.decoration-frames {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+
+}
+
+.decoration-frame-left,
+.decoration-frame-right {
+    display: flex;
+    justify-content: center;
+    margin-top: 200px;
+    padding: 250px;
+}
+
+.registration-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 357px;
+    height: 643px;
+    transform: translate(-50%, -50%);
+    background-color: rgb(174, 238, 174);
+    padding: 8px;
+    border-radius: 7px;
+    box-shadow: 0 0 7px rgba(0, 0, 0, 0.3);
+    display: none;
+}
+
+.register-btn {
+    padding: 12px 24px;
+    font-size: 18px;
+    border: none;
+    border-radius: 5px;
+    background-color: rgba(174, 238, 174, 0.8);
+    color: rgba(31, 31, 30, 0.8);
+    cursor: pointer;
+    transition: background-color 0.5s ease;
+}
+
+.registration-popup .close-btn {
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.register-btn:hover {
+    background-color: rgba(174, 238, 174, 0.8);
+}
+
+
+.registration-popup.open {
+    display: block;
+}
+
+.registration-popup label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+.registration-popup input[type="text"],
+.registration-popup input[type="email"],
+.registration-popup input[type="password"],
+.registration-popup select,
+.registration-popup textarea {
+    margin-bottom: 10px;
+    padding: 8px;
+    width: 285px;
+    border: none;
+    border-bottom: 2px solid #333;
+    outline: none;
+    font-size: 16px;
+    background-color: rgba(174, 238, 174, 0.8);
+}
+
+
+.registration-popup button {
+    display: block;
+    padding: 11px 22px;
+    border: none;
+    justify-content: center;
+    border-radius: 5px;
+    background-color: #333;
+    color: rgba(174, 238, 174, 0.8);
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.5s ease;
+}
+
+.check-mail-code-btn {
+    display: inline-block;
+    vertical-align: top;
+    padding: 11px 22px;
+    border: none;
+    border-radius: 5px;
+    background-color: #333;
+    color: rgba(174, 238, 174, 0.8);
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.5s ease;
+}
+
+.check-mail-code-btn:hover {
+    background-color: rgba(174, 238, 174, 0.8);
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-between; /* Распределение кнопок по ширине контейнера с равными промежутками между ними */
+    margin-top: 10px; /* Расстояние между кнопками и другим содержимым окна */
+}
+
+.register-btn,
+.check-mail-code-btn {
+    flex: 1; /* Обе кнопки равномерно занимают пространство */
+}
+
+/* Стили для категорий и подкатегорий */
+.category-container {
+    margin-top: 7%;
+    background-color: #e0fadedc;
+    padding: 20px;
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.category-title {
+    font-size: 36px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #333;
+}
+
+.subcategory {
+    margin-top: 50px;
+}
+
+.subcategory-title {
+    font-size: 28px;
+    font-weight: bold;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    color: #555;
+}
+
+.subcategory-images {
+    margin-bottom: 200px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.subcategory-image {
+    margin: 40px;
+}
+
+.subcategory-image img {
+    max-width: 300px;
+    max-height: auto;
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+}
+
+.subcategory-image img:hover {
+    transform: scale(1.05);
+}
+
+.subcategory-image:before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background-color: rgba(0, 0, 0, 0);
+    border-radius: 50%;
+    transition: width 0.3s ease, height 0.3s ease, background-color 0.3s ease;
+}
+
+.divider {
+    margin: 40px 0;
+    border: none;
+    height: 1px;
+    background-color: #ddd;
+}
+
+/* Подкатегории их страницы и настройка*/
+.subcategory-container {
+    margin-top: 7%;
+    background-color: #e0fadedc;
+    padding: 20px;
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.subcategory-title {
+    font-size: 36px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #333;
+}
+
+.category-return {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.category-return a {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #333;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.category-return a:hover {
+    background-color: #555;
+}
+
+.subcategory-description {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 18px;
+    color: #555;
+}
+
+/*аккаунт и его настройка */
+.account-container {
+    margin-top: 10%;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 20px;
+    text-align: center;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+
+.user-name {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.user-info {
+    font-size: 18px;
+    margin-bottom: 20px;
+    color: #555;
+}
+
+.orders-section {
+    margin-top: 40px;
+}
+
+.orders-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.orders-table th, .orders-table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+
+.comments-section {
+    margin-top: 40px;
+    text-align: left;
+}
+
+.comment {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.comment-image {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 20px;
+}
+
+.comment-text {
+    font-size: 16px;
+    color: #333;
+}
+
+/*Корзина и ее настройка */
+.cart-container {
+    margin-right: 10%;
+    margin-left: 10%;
+    width: 80%;
+    margin-top: 50px;
+    text-align: center;
+    background-color: #cccccc;
+}
+
+.orders-section {
+    margin-top: 30px;
+}
+
+.orders-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.orders-table th, .orders-table td {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+.orders-table th {
+    background-color: #cccccc;
+}
+
+.orders-table tbody tr:hover {
+    background-color: #f9f9f9;
+}
+
+/*Продукт и его настройка */
+.product-container {
+    margin-right: 10%;
+    margin-left: 10%;
+    width: 80%;
+    display: flex;
+    margin-top: 4%;
+    background-color: #f1f0f0cc;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.product-image {
+    flex: 1;
+    margin-right: 20px;
+}
+
+.product-image img {
+    max-width: 80%;
+    border-radius: 10px;
+}
+
+.product-details {
+    flex: 2;
+}
+
+.product-title {
+    font-size: 36px;
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.product-description {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #555;
+}
+
+.product-price {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.product-specs {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+.comments {
+    margin-top: 20px;
+}
+
+.buttons {
+    text-align: center;
+}
+
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #333;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    margin-right: 10px;
+}
+
+.button:hover {
+    background-color: #555;
+}
+
+hr {
+    border: 1px solid #ccc;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+/*Продолжение основных адаптаций под телефон */
+@media screen and (max-width: 800px) {
+    .account-container {
+        margin-top: 30vw;
+    }
+
+    .controls {
+        padding: 20px;
+    }
+
+    .prev-btn {
+        margin-bottom: 10px;
+
+    }
+
+    .next-btn {
+        margin-top: 10px;
+    }
+
+    .image-carousel img {
+        width: 250px;
+        height: auto;
+        max-height: 200px;
+        margin-right: 50px;
+        margin-left: 50px;
+        border-radius: 10px;
+        margin-bottom: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+    }
+
+    .product-image img {
+        max-width: 50%;
+        border-radius: 10px;
+    }
+
+    .buttons {
+        align-content: center;
+        text-align: center;
+    }
+
+
+    .button {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #333;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+        margin-right: 10px;
+    }
+}
+
+.orders-table td:first-child {
+    width: 30px;
+    text-align: center;
+}
+
+.toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 30px;
+    height: 15px;
+    background-color: #ccc;
+    border-radius: 15px;
+    cursor: pointer;
+}
+
+.toggle-switch::after {
+    content: "";
+    position: absolute;
+    top: 1px;
+    left: 1px;
+    width: 13px;
+    height: 13px;
+    background-color: #fff;
+    border-radius: 50%;
+    transition: transform 0.3s ease;
+}
+
+
+.toggle-switch.active {
+    background-color: #ffcc00;
+}
+
+.toggle-switch.active::after {
+    transform: translateX(15px);
+}
+
+/* Стили для кнопки "Оплатить" */
+.pay-button {
+    background-color: #51dd64; /* Цвет кнопки */
+    color: #fff; /* Цвет текста */
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.pay-button:hover {
+    background-color: #3a8334; /* Цвет кнопки при наведении */
+}
+
+
+.close-btn {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close-btn:hover,
+.close-btn:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+/* это пиздец */
+.back-button { 
+    position: absolute;
+    width: 10vw;
+    top: 115px;
+    height: 3rem;
+    left: 13rem; 
+    background-color: black;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.back-button:hover {
+    background-color: #333;
+    transform: scale(1.05);
+}
+
+.back-button:active {
+    background-color: #111;
+}
