@@ -43,7 +43,6 @@ class ProductService(
     private val categoryService: CategoryService,
     private val mongoTemplate: MongoTemplate
 ) : ApplicationListener<MarketplaceEvent> {
-    @Cacheable
     fun findProductById(id: String): Optional<Product> = productRepo.findById(id)
     fun productExists(id: String): Boolean = productRepo.existsById(id)
 
@@ -190,6 +189,7 @@ class ProductService(
         return productRepo.findAllByCaptionContainingIgnoreCase(query, pageable)
     }
 
+    @Cacheable(condition = "#queryConstructor.criterias.size() <= 3")
     fun findProducts(
         queryConstructor: QueryConstructor,
         sortConstructor: SortConstructor,
