@@ -19,7 +19,7 @@ import org.springframework.data.domain.Page
 import org.springframework.web.bind.annotation.*
 
 @RestController
-@RequestMapping("/v2/marketplace")
+@RequestMapping("/marketplace")
 class MarketplaceControllerV2(
     private val categoryService: CategoryService,
     private val commentService: CommentService,
@@ -69,7 +69,6 @@ class MarketplaceControllerV2(
     @GetMapping("/products/find")
     fun findProducts(query: String, page: Int, pageSize: Int) =
         productService.findProducts(query, CheckedPageable(page, pageSize))
-
 
     @GetMapping("/products/findV2")
     fun findProductsV2(query: String, sort: String, page: Int, pageSize: Int): Page<Product> {

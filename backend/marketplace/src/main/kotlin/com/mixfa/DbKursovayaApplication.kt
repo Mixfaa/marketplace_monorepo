@@ -35,6 +35,9 @@ import org.springframework.validation.beanvalidation.MethodValidationPostProcess
 import org.springframework.web.cors.CorsConfiguration
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 
+const val PRODUCT_CREATED_QUEUE = "indexer-product-created"
+const val CATEGORY_CREATED_QUEUE = "indexer-category-created"
+
 @SpringBootApplication
 @EnableMongoRepositories
 @EnableMethodSecurity
@@ -43,10 +46,10 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 class DbKursovayaApplication {
 
     @Bean
-    fun queue1(): Queue = Queue("indexer-product-created")
+    fun productCreatedQueue(): Queue = Queue(PRODUCT_CREATED_QUEUE)
 
     @Bean
-    fun queue2(): Queue = Queue("indexer-category-created")
+    fun categoryCreatedQueue(): Queue = Queue(CATEGORY_CREATED_QUEUE)
 
     @Bean
     fun passwordEncoder(): PasswordEncoder = BCryptPasswordEncoder()

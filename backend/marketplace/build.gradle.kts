@@ -17,6 +17,9 @@ java {
 
 allOpen {
     annotation("org.springframework.data.mongodb.core.mapping.Document")
+    annotation("org.springframework.cache.annotation.CacheEvict")
+    annotation("org.springframework.transaction.annotation.Transactional")
+    annotation("org.springframework.security.access.prepost.PreAuthorize")
 }
 
 repositories {
@@ -26,9 +29,8 @@ repositories {
 
 dependencies {
     implementation("com.github.Mixfaa:excify:0.0.2")
+    implementation("org.springframework.boot:spring-boot-starter-cache")
 
-
-//    testImplementation("org.springframework.amqp:spring-rabbit-test")
     ksp("com.github.Mixfaa:excify:0.0.2")
     implementation("com.github.Mixfaa:excify-either-module:1b6ab4f980fb34b764fcfad298e7b115827c44bf")
     implementation("org.springframework.boot:spring-boot-starter-amqp")

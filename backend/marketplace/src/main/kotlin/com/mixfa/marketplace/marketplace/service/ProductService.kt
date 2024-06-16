@@ -13,6 +13,9 @@ import com.mixfa.shared.model.SortConstructor
 import jakarta.validation.Valid
 import jakarta.validation.constraints.NotBlank
 import org.bson.types.ObjectId
+import org.springframework.cache.annotation.CacheConfig
+import org.springframework.cache.annotation.CacheEvict
+import org.springframework.cache.annotation.Cacheable
 import org.springframework.context.ApplicationEventPublisher
 import org.springframework.context.ApplicationListener
 import org.springframework.data.domain.Page
@@ -22,6 +25,7 @@ import org.springframework.data.mongodb.core.aggregation.Aggregation
 import org.springframework.data.mongodb.core.query.Criteria
 import org.springframework.data.mongodb.core.query.Query
 import org.springframework.data.mongodb.core.query.Update
+import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -29,14 +33,17 @@ import org.springframework.validation.annotation.Validated
 import java.util.*
 import kotlin.jvm.optionals.getOrNull
 
+
 @Service
 @Validated
+@CacheConfig(cacheNames = ["product"])
 class ProductService(
     private val productRepo: ProductRepository,
     private val eventPublisher: ApplicationEventPublisher,
     private val categoryService: CategoryService,
     private val mongoTemplate: MongoTemplate
 ) : ApplicationListener<MarketplaceEvent> {
+    @Cacheable
     fun findProductById(id: String): Optional<Product> = productRepo.findById(id)
     fun productExists(id: String): Boolean = productRepo.existsById(id)
 
@@ -46,7 +53,8 @@ class ProductService(
         return products
     }
 
-    private fun updateProductRate(product: Product) {
+    @CacheEvict
+     fun updateProductRate(product: Product) {
         data class AverageRateAggregatingResult(val _id: Any?, val averageRate: Double)
 
         val aggregation = Aggregation.newAggregation(
@@ -67,6 +75,7 @@ class ProductService(
         )
     }
 
+    @CacheEvict
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     fun addProductImage(productId: String, @NotBlank imageLink: String) {
         if (!productExists(productId)) throw NotFoundException.productNotFound()
@@ -78,6 +87,7 @@ class ProductService(
         )
     }
 
+    @CacheEvict
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     fun removeProductImage(productId: String, imageLink: String) {
         if (!productExists(productId)) throw NotFoundException.productNotFound()
@@ -118,6 +128,7 @@ class ProductService(
                 )
     }
 
+    @CacheEvict
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     fun updateProduct(productId: String, request: Product.RegisterRequest): Product {
         if (!productExists(productId)) throw NotFoundException.productNotFound()
@@ -144,8 +155,9 @@ class ProductService(
     }
 
     @Transactional
+    @CacheEvict
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    open fun registerProduct(@Valid request: Product.RegisterRequest): Product {
+     fun registerProduct(@Valid request: Product.RegisterRequest): Product {
         val categories = categoryService.findCategoriesByIdOrThrow(request.categories).toHashSet()
         checkProductCharacteristics(request.characteristics, categories)
 
@@ -164,14 +176,16 @@ class ProductService(
     }
 
     @Transactional
+    @CacheEvict
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    open fun deleteProduct(productId: String) {
+     fun deleteProduct(productId: String) {
         if (!productRepo.existsById(productId)) throw NotFoundException.productNotFound()
 
         eventPublisher.publishEvent(Event.ProductDelete(productId, this))
         productRepo.deleteById(productId)
     }
 
+    @Cacheable
     fun findProducts(query: String, pageable: CheckedPageable): Page<Product> {
         return productRepo.findAllByCaptionContainingIgnoreCase(query, pageable)
     }
@@ -192,6 +206,7 @@ class ProductService(
         return PageImpl(products, pageable, total)
     }
 
+    @CacheEvict
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     fun changeProductQuantity(productId: String, quantity: Long) {
         val updateResult = mongoTemplate.updateFirst(
@@ -235,7 +250,8 @@ class ProductService(
         }
     }
 
-    private fun updateProductsPrices(discount: AbstractDiscount, discountDeleted: Boolean) {
+    @CacheEvict
+     fun updateProductsPrices(discount: AbstractDiscount, discountDeleted: Boolean) {
         val targetProducts = when (discount) {
             is DiscountByCategory -> {
                 mongoTemplate.findIterating<Product>(
@@ -259,6 +275,10 @@ class ProductService(
             )
         }
     }
+
+    @CacheEvict
+    @Scheduled(fixedRate = 20 * 60 * 1000)
+    fun invalidateCache() {}
 
     override fun onApplicationEvent(event: MarketplaceEvent) {
         when (event) {

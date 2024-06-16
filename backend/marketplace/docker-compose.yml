@@ -19,7 +19,6 @@ services:
       - "mongo1_data:/data/db"
       - "mongo1_config:/data/configdb"
 
-
   rabbitmq:
     image: rabbitmq:3.10.7-management
     ports:
@@ -29,6 +28,20 @@ services:
       - 'RABBITMQ_DEFAULT_PASS=password'
       - 'RABBITMQ_DEFAULT_USER=rabbituser'
 
+#  redis:
+#    image: redis:latest
+#    restart: always
+#    ports:
+#      - "6379:6379"
+#    volumes:
+#      - "redis_data:/data"
+#      - "redis_config:/config"
+#    environment:
+#      - 'REDIS_PASSWORD=password'
+#      - 'REDIS_PORT=6379'
+
 volumes:
   mongo1_data:
   mongo1_config:
+#  redis_data:
+#  redis_config:

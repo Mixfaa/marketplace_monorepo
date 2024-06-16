@@ -1,5 +1,7 @@
 package com.mixfa.marketplace.prop_indexer
 
+import com.mixfa.CATEGORY_CREATED_QUEUE
+import com.mixfa.PRODUCT_CREATED_QUEUE
 import com.mixfa.marketplace.marketplace.model.Category
 import com.mixfa.marketplace.marketplace.model.Product
 import com.mixfa.marketplace.marketplace.service.CategoryService
@@ -34,14 +36,14 @@ class IndexerEventProducer(
         when (event) {
             is ProductService.Event.ProductRegister -> event.product.let { product ->
                 amqpTemplate.convertAndSend(
-                    "indexer-product-created",
+                    PRODUCT_CREATED_QUEUE,
                     ProductCreatedEvent(product)
                 )
             }
 
             is CategoryService.Event.CategoryRegister -> event.category.let { category ->
                 amqpTemplate.convertAndSend(
-                    "indexer-category-created",
+                    CATEGORY_CREATED_QUEUE,
                     CategoryCreatedEvent(category)
                 )
             }
