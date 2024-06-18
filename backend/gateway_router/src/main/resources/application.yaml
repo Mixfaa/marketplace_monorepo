@@ -1,0 +1,35 @@
+logging:
+  level:
+    org.springframework.cloud.gateway.handler.RoutePredicateHandlerMapping: DEBUG
+
+spring:
+  application:
+    name: 'gateway_router'
+  cloud:
+    gateway:
+      default-filters:
+      - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
+      routes:
+        - id: indexer
+          uri: http://127.0.0.1:8081
+          predicates:
+            - Path=/indexer/**
+
+        - id: marketplace
+          uri: http://127.0.0.1:8080
+          predicates:
+            - Path=/marketplace/**
+
+        - id: account
+          uri: http://127.0.0.1:8080
+          predicates:
+            - Path=/account/**
+
+        - id: file-storage
+          uri: http://127.0.0.1:8080
+          predicates:
+            - Path=/file-storage/**
+
+server:
+  port: 8085
+

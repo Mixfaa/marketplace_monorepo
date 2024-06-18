@@ -18,7 +18,7 @@ import java.security.Principal
 
 
 @RestController
-@RequestMapping("/marketplace/account")
+@RequestMapping("/account")
 class AccountControllerV2(
     private val accountService: AccountService,
     private val mongoTemplate: MongoTemplate,

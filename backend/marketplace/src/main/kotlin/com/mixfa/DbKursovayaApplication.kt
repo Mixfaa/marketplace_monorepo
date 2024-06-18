@@ -65,7 +65,7 @@ class DbKursovayaApplication {
                     registerCorsConfiguration(
                         "/**",
                         CorsConfiguration().applyPermitDefaultValues().apply {
-                            allowedMethods = listOf("GET", "POST", "DELETE", "PUT")
+                            allowedMethods = listOf("GET", "POST", "DELETE", "PUT", "OPTIONS")
                         }
                     )
                 })

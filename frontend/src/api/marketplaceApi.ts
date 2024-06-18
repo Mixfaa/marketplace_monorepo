@@ -3,15 +3,18 @@ import qs from "qs"
 import { get } from "svelte/store"
 import { persisted } from 'svelte-persisted-store'
 
-export const MARKET_PLACE_ENDPOINT = "http://localhost:8080/v2"
+export const MARKET_PLACE_ENDPOINT = "http://localhost:8085" // gateway 
 
 export function is_successful(status: number) {
     return status >= 200 && status < 300
 }
 
 export function makeMarketplaceClient(): AxiosInstance {
+    const headers = new AxiosHeaders()
+    headers.set('Access-Control-Allow-Origin', '*')
     return axios.create({
         baseURL: MARKET_PLACE_ENDPOINT,
+        // headers: headers
     })
 }
 
@@ -526,7 +529,7 @@ export class PrivateMarketplaceApi {
     }
 
     listIndexesFor(categoryId: string, prop: string) {
-        return this.marketplaceClient.get(`/marketplace/indexer/${categoryId}/${prop}`)
+        return this.marketplaceClient.get(`/indexer/${categoryId}/${prop}`)
     }
 
     async listIndexesForWrapped(categoryId: string, prop: string) {
@@ -534,7 +537,7 @@ export class PrivateMarketplaceApi {
     }
 
     listIndexes(categoryId: string, page: number, pageSize: number) {
-        return this.marketplaceClient.get(`/marketplace/indexer/${categoryId}`, {
+        return this.marketplaceClient.get(`/indexer/${categoryId}`, {
             params: {
                 "page": page,
                 "pageSize": pageSize

@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*
 import org.springframework.web.multipart.MultipartFile
 
 @RestController
-@RequestMapping("/marketplace/file-storage")
+@RequestMapping("/file-storage")
 class FileStorageController(
     private val fsService: ImgurFileStorage
 ) {

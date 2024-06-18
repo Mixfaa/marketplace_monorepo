@@ -8,6 +8,9 @@ import org.springframework.amqp.support.converter.MessageConverter
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 import org.springframework.context.annotation.Bean
+import org.springframework.web.servlet.config.annotation.CorsRegistry
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
+
 
 const val PRODUCT_CREATED_QUEUE = "indexer-product-created"
 const val CATEGORY_CREATED_QUEUE = "indexer-category-created"
@@ -26,6 +29,15 @@ class DbKursovayaIndexerApplication {
 
     @Bean
     fun messageConverter(mapper: ObjectMapper): MessageConverter = Jackson2JsonMessageConverter(mapper)
+
+    @Bean
+    fun corsConfigurer(): WebMvcConfigurer {
+        return object : WebMvcConfigurer {
+            override fun addCorsMappings(registry: CorsRegistry) {
+                registry.addMapping("/**").allowedOrigins("*")
+            }
+        }
+    }
 }
 
 fun main(args: Array<String>) {
