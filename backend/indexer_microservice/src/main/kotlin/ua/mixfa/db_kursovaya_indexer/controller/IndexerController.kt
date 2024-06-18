@@ -9,7 +9,7 @@ import ua.mixfa.db_kursovaya_indexer.CheckedPageable
 import ua.mixfa.db_kursovaya_indexer.service.IndexerService
 
 @RestController
-@RequestMapping("/v2/marketplace/indexer")
+@RequestMapping("/indexer")
 class IndexerController(
     private val indexerService: IndexerService
 ) {
