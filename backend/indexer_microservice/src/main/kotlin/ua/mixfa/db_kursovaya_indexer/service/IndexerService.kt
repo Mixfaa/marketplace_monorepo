@@ -10,23 +10,20 @@ import org.springframework.data.mongodb.core.query.Criteria
 import org.springframework.data.mongodb.core.query.Query
 import org.springframework.data.mongodb.core.query.Update
 import org.springframework.stereotype.Service
-import ua.mixfa.db_kursovaya_indexer.CATEGORY_CREATED_QUEUE
-import ua.mixfa.db_kursovaya_indexer.PRODUCT_CREATED_QUEUE
 import ua.mixfa.db_kursovaya_indexer.fieldName
 import ua.mixfa.db_kursovaya_indexer.findPageable
 import ua.mixfa.db_kursovaya_indexer.model.*
-
 
 @Service
 class IndexerService(
     private val mongoTemplate: MongoTemplate,
 ) {
-    @RabbitListener(queues = [PRODUCT_CREATED_QUEUE])
+    @RabbitListener(queues = ["\${rabbitmq.product-created-queue}"])
     fun listenProductCreated(event: ProductCreatedEvent) {
         onProductCreated(event)
     }
 
-    @RabbitListener(queues = [CATEGORY_CREATED_QUEUE])
+    @RabbitListener(queues = ["\${rabbitmq.category-created-queue}"])
     fun listenCategoryCreated(event: CategoryCreatedEvent) {
         onCategoryCreated(event)
     }

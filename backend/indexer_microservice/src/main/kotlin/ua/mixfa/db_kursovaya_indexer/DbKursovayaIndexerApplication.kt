@@ -5,6 +5,7 @@ import com.fasterxml.jackson.module.kotlin.registerKotlinModule
 import org.springframework.amqp.core.Queue
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter
 import org.springframework.amqp.support.converter.MessageConverter
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 import org.springframework.context.annotation.Bean
@@ -12,17 +13,17 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
 
 
-const val PRODUCT_CREATED_QUEUE = "indexer-product-created"
-const val CATEGORY_CREATED_QUEUE = "indexer-category-created"
 
 @SpringBootApplication
-class DbKursovayaIndexerApplication {
+class DbKursovayaIndexerApplication(
+    @Value("\${rabbitmq.product-created-queue}") private val productCreatedQueue: String,
+    @Value("\${rabbitmq.category-created-queue}") private val categoryCreatedQueue: String
+) {
+    @Bean
+    fun productCreatedQueue(): Queue = Queue(productCreatedQueue)
 
     @Bean
-    fun queue1(): Queue = Queue(PRODUCT_CREATED_QUEUE)
-
-    @Bean
-    fun queue2(): Queue = Queue(CATEGORY_CREATED_QUEUE)
+    fun categoryCreatedQueue(): Queue = Queue(categoryCreatedQueue)
 
     @Bean
     fun objectMapper(): ObjectMapper = ObjectMapper().registerKotlinModule()
