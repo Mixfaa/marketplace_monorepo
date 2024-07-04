@@ -108,6 +108,8 @@ class AccountService(
         )
     }
 
+    fun existsByUsername(username: String) : Boolean = accountRepo.existsByUsername(username)
+
     fun sendEmailTo(@Valid @NotBlank email: String) {
         val code = takeWhile(mailCodes::containsKey, ::random6DigitCode)
 

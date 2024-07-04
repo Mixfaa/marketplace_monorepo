@@ -36,7 +36,7 @@ class FileStorageService(
         if (fileType == null || !checkFileType(fileType))
             throw FastException("File type $fileType not supported")
 
-        if (file.size >= maxFileSize) throw makeMemorizedException("File is too large to be stored")
+        if (file.size > maxFileSize) throw makeMemorizedException("File is too large to be stored")
         val account = accountService.getAuthenticatedAccount().orThrow()
 
         return filesRepo.save(

@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.SerializationFeature
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer
 import com.fasterxml.jackson.module.kotlin.kotlinModule
+import com.mixfa.account.jwt.JwtAuthFilter
+import com.mixfa.account.service.AccountService
 import com.mixfa.shared.converter.WithDtoSerializer
 import com.mixfa.shared.model.WithDto
 import org.bson.types.ObjectId
@@ -22,13 +24,18 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 import org.springframework.mail.javamail.JavaMailSender
 import org.springframework.mail.javamail.JavaMailSenderImpl
 import org.springframework.scheduling.annotation.EnableScheduling
-import org.springframework.security.config.Customizer
+import org.springframework.security.authentication.AuthenticationManager
+import org.springframework.security.authentication.AuthenticationProvider
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
+import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.security.web.SecurityFilterChain
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
 import org.springframework.transaction.TransactionManager
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean
 import org.springframework.validation.beanvalidation.MethodValidationPostProcessor
@@ -56,10 +63,29 @@ class DbKursovayaApplication(
     fun passwordEncoder(): PasswordEncoder = BCryptPasswordEncoder()
 
     @Bean
+    fun authenticationProvider(
+        accountService: AccountService,
+        passwordEncoder: PasswordEncoder
+    ): AuthenticationProvider {
+        return DaoAuthenticationProvider().apply {
+            setUserDetailsService(accountService)
+            setPasswordEncoder(passwordEncoder)
+        }
+    }
+
+    @Bean
+    fun authenticationManager(config: AuthenticationConfiguration): AuthenticationManager = config.authenticationManager
+
+    @Bean
     fun securityWebFilterChain(
         http: HttpSecurity,
+        authenticationProvider: AuthenticationProvider,
+        jwtAuthFilter: JwtAuthFilter
     ): SecurityFilterChain =
-        http.httpBasic(Customizer.withDefaults())
+        http
+            .sessionManagement { it.sessionCreationPolicy(SessionCreationPolicy.STATELESS) }
+            .authenticationProvider(authenticationProvider)
+            .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter::class.java)
             .csrf { it.disable() }
             .cors {
                 it.configurationSource(UrlBasedCorsConfigurationSource().apply {

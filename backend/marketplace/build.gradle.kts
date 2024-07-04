@@ -29,10 +29,14 @@ repositories {
 
 dependencies {
     implementation("com.github.Mixfaa:excify:0.0.2")
-    implementation("org.springframework.boot:spring-boot-starter-cache")
-
     ksp("com.github.Mixfaa:excify:0.0.2")
     implementation("com.github.Mixfaa:excify-either-module:1b6ab4f980fb34b764fcfad298e7b115827c44bf")
+
+    runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.12.5")
+    runtimeOnly("io.jsonwebtoken:jjwt-impl:0.12.5")
+    implementation("io.jsonwebtoken:jjwt-api:0.12.5")
+
+    implementation("org.springframework.boot:spring-boot-starter-cache")
     implementation("org.springframework.boot:spring-boot-starter-amqp")
     implementation("org.springframework.boot:spring-boot-starter-validation")
     implementation("jakarta.validation:jakarta.validation-api:3.0.2")
