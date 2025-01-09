@@ -5,3 +5,5 @@ Backend contains 3 services
 - indexer - manages required properties of categories, and smth with products properties. Have rest methods to access indexes of categories, it talks to main service via RabbitMQ MessageBroker
 - gateway router
   
+
+see https://github.com/Mixfaa/db_kursovaya
